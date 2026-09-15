@@ -1,0 +1,50 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Build output
+dist/
+build/
+.next/
+.turbo/
+
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Claude plan checkpoints
+.claude-plan.json
+
+# Local-only Claude overrides (machine specific)
+.claude/settings.local.json
+
+# Session-transient wrap-up gate state (see .claude/commands/wrap-up.md)
+.claude/.wrap-up-armed
+.claude/.wrap-up-step-*

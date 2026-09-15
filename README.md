@@ -12,43 +12,28 @@ A knowledge management system for Claude Code that:
 
 ## Quick Start
 
-### 1. Install Prerequisites
+**Full walkthrough: [GETTING_STARTED.md](GETTING_STARTED.md)** (about 30 minutes, no terminal needed day to day).
 
-```bash
-# Claude Code CLI
-npm install -g @anthropic-ai/claude-code
+1. **You need** a Claude Pro plan or higher, the Claude desktop app, and Git (Git for Windows on Windows).
+2. **Get this repository**: clone it, or use **Code → Download ZIP**.
 
-# Verify
-claude --version
-```
+   ```bash
+   git clone https://github.com/DomTSM718/second-brain-template.git second-brain
+   cd second-brain
+   git remote remove origin
+   ```
 
-### 2. Clone/Copy This Repository
+3. **Open it**: in the desktop app, go to **Code** → **Local** → **Select folder**, and choose `second-brain`.
+4. **Make it yours**: ask Claude to *"help me fill in the User Profile section of CLAUDE.md, one question at a time"*.
+5. **Start using it**:
 
-```bash
-git clone [your-repo-url] second-brain
-cd second-brain
-```
+   ```
+   /new-project my-project
+   /switch my-project
+   /overview
+   ```
 
-### 3. Customize for Your Use Case
-
-Edit `CLAUDE.md` → **User Profile** section with:
-- Your role and context
-- Your tech stack
-- Your pain points
-- Your goals
-
-### 4. Start Using
-
-```bash
-# Open Claude Code in this directory
-claude
-
-# Load a project
-/switch my-project
-
-# Get your daily overview
-/overview
-```
+Prefer the terminal? Install the CLI from https://code.claude.com/docs/en/setup and run `claude` inside the folder.
 
 ## Core Concepts
 
@@ -81,19 +66,19 @@ Each project contains:
 ## Daily Workflow
 
 ### Morning
-```bash
+```
 /overview              # See all urgent tasks
 /switch [project]      # Load project context
 ```
 
 ### During Work
-```bash
+```
 /plan [complex task]   # Break down big tasks
 /step                  # Execute incrementally
 ```
 
 ### End of Day
-```bash
+```
 /learn                 # Extract patterns from today's work
 ```
 
@@ -118,7 +103,8 @@ Each project contains:
 ├── commands/          # Slash commands (pre-built)
 ├── skills/            # Executable workflows
 ├── agents/            # Specialized AI agents
-└── hooks/             # Event hooks
+├── hooks/             # Event hooks (bash scripts)
+└── settings.json      # Permissions, safety and hook wiring
 
 memory/
 ├── semantic/          # What you know
@@ -130,36 +116,37 @@ projects/
 ├── _template/         # New project template
 └── [your-projects]/   # Your actual projects
 
-settings.local.json    # Permissions & safety
 CLAUDE.md              # System instructions (CUSTOMIZE THIS)
 ```
 
 ## Customization Checklist
 
-Before using, update these files:
+Before using, update these:
 
 - [ ] **CLAUDE.md** → User Profile section (required)
-- [ ] **settings.local.json** → Add tools for your tech stack
-- [ ] **projects/** → Create your first project
-- [ ] **memory/semantic/tech/** → Document your architecture
+- [ ] **.claude/settings.json** → Allow the tools you use (optional)
+- [ ] **projects/** → Create your first project with `/new-project`
+- [ ] **memory/semantic/tech/** → Document your tools and decisions
 
 ## Safety Features
 
-Built-in protections:
+Built-in protections in `.claude/settings.json`:
 - Blocks destructive operations (`rm -rf`, etc.)
-- Restricts network access to documentation sites
-- Prevents privilege escalation
-- Incremental checkpoints during complex tasks
+- Blocks network download tools (`curl`, `wget`, `nc`)
+- Prevents privilege escalation (`sudo`, `su`)
+- Blocks reading `.env` secrets files
+- Incremental Git checkpoints during complex tasks
 
 ## Key Documents
 
+- **GETTING_STARTED.md** - Setup and daily use (start here)
 - **CLAUDE.md** - Complete system documentation
-- **ONBOARDING.md** - Setup guide for new users
-- **settings.local.json** - Safety permissions
+- **ONBOARDING.md** - Deeper walkthrough of each part of the system
+- **.claude/settings.json** - Safety permissions and hook wiring
 
 ## Getting Help
 
-- First time? → Read `ONBOARDING.md`
+- First time? → Read `GETTING_STARTED.md`
 - Complex feature? → Use `/plan [goal]` → `/step`
 - Ending session? → Run `/learn`
 - Check progress → Run `/grow`

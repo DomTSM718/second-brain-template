@@ -197,7 +197,9 @@ allowed-tools: "Read,Write,Edit,Grep,Bash"
 
 ## Safety System
 
-### Permissions (settings.local.json)
+### Permissions (.claude/settings.json)
+
+The `.claude/settings.json` file configures safety permissions and hook wiring. (A root-level `settings.local.json` is NOT read by Claude Code - never put config there.)
 
 **Allowed Operations:**
 - File operations: `Read`, `Write`, `Edit`, `Grep`, `Glob`
@@ -319,7 +321,7 @@ Review:
 2. **Zero Context Switching** - `/switch` loads full project context instantly
 3. **Progressive Disclosure** - Read SKILL.md first, then references/ on-demand
 4. **Incremental Execution** - `/plan` breaks tasks into small steps
-5. **Safety First** - settings.local.json blocks destructive operations
+5. **Safety First** - .claude/settings.json blocks destructive operations
 6. **Pattern Reuse** - Extract patterns once, apply across all projects
 7. **Evidence-Based Learning** - Patterns promoted LOW → MEDIUM → HIGH by repetition
 

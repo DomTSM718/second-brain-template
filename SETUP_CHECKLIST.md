@@ -1,25 +1,24 @@
 # Second Brain Setup Checklist
 
-This package is ready to use. Follow this checklist to customize it for your needs.
+A one-page recap. Each step is explained in full in **[GETTING_STARTED.md](GETTING_STARTED.md)**.
 
 ---
 
 ## What's Included
 
-This export contains everything you need:
-
 ```
-EXPORT/
-├── CLAUDE.md                 # System instructions (CUSTOMIZE THIS)
-├── README.md                 # Quick start guide
-├── ONBOARDING.md             # Detailed setup guide
-├── INSTALLATION_GUIDE.md     # Install prerequisites
-├── settings.local.json       # Permissions (add your tools)
+second-brain/
+├── CLAUDE.md                 # System instructions (CUSTOMIZE the User Profile)
+├── GETTING_STARTED.md        # Setup and daily use - start here
+├── README.md                 # Overview
+├── ONBOARDING.md             # Deeper walkthrough of the system
+├── INSTALLATION_GUIDE.md     # Terminal (CLI) route, for those who prefer it
 ├── .claude/
-│   ├── commands/             # All slash commands
-│   ├── skills/               # All workflows
-│   ├── agents/               # All AI agents
-│   └── hooks/                # Event hooks
+│   ├── commands/             # Slash commands
+│   ├── skills/               # Workflows
+│   ├── agents/               # Specialized agents
+│   ├── hooks/                # Reminder and session-close scripts
+│   └── settings.json         # Permissions, safety and hook wiring
 ├── memory/                   # Empty knowledge storage
 ├── projects/                 # Project templates
 └── brain-health/             # Metrics tracking
@@ -29,104 +28,34 @@ EXPORT/
 
 ## Setup Steps
 
-### Step 1: Install Prerequisites
+### 1. Prerequisites
+- [ ] Claude **Pro plan or higher** (Free does not include Claude Code)
+- [ ] **Claude desktop app** installed and signed in
+- [ ] **Git** installed (on Windows: Git for Windows, which also provides bash for the hooks)
+- [ ] Git configured with your name and email
 
-Follow `INSTALLATION_GUIDE.md` to install:
-- [ ] Node.js (v18+)
-- [ ] Git
-- [ ] Claude Code CLI (`npm install -g @anthropic-ai/claude-code`)
+### 2. Get the repository
+- [ ] Cloned (`git clone https://github.com/DomTSM718/second-brain-template.git second-brain`, then `git remote remove origin`)
+- [ ] ...or downloaded via **Code → Download ZIP** and unzipped to a folder named `second-brain`
 
-### Step 2: Copy This Folder
+### 3. Open it
+- [ ] Desktop app → **Code** tab → **Local** → **Select folder** → `second-brain`
+- [ ] Permission mode set to **Manual** or **Accept edits** while learning
 
-Copy the entire EXPORT folder to your desired location:
+### 4. Make it yours
+- [ ] `CLAUDE.md` User Profile filled in (ask Claude to interview you, one question at a time)
+- [ ] First checkpoint committed (ZIP users: ask Claude to initialise a Git repository first)
 
-**Windows:**
-```powershell
-Copy-Item -Path "EXPORT" -Destination "C:\Users\YourName\second-brain" -Recurse
-```
+### 5. Allow your tools (optional)
+- [ ] Commands you use often added to `"allow"` in `.claude/settings.json`
 
-**macOS/Linux:**
-```bash
-cp -r EXPORT ~/second-brain
-```
+### 6. First project
+- [ ] `/new-project my-project` run, with real context and two or three real tasks
 
-### Step 3: Customize CLAUDE.md (Required)
-
-Open `CLAUDE.md` and fill in the **User Profile** section:
-
-| Section | What to Add |
-|---------|-------------|
-| Role & Context | Your job, company, work focus |
-| Work Domains | Languages, frameworks, types of work |
-| Pain Points | What frustrates you |
-| Tech Stack | IDE, language, database, platform |
-| Goals | 6-month success vision |
-
-### Step 4: Configure Permissions
-
-Edit `settings.local.json` to add your development tools.
-
-**Python:**
-```json
-"Bash(python *:*)",
-"Bash(pip *:*)",
-"Bash(pytest *:*)"
-```
-
-**JavaScript/TypeScript:**
-```json
-"Bash(npm *:*)",
-"Bash(node *:*)",
-"Bash(yarn *:*)"
-```
-
-**Go:**
-```json
-"Bash(go *:*)",
-"Bash(make *:*)"
-```
-
-**C#/.NET:**
-```json
-"Bash(dotnet *:*)",
-"Bash(nuget *:*)"
-```
-
-**Rust:**
-```json
-"Bash(cargo *:*)"
-```
-
-### Step 5: Create Your First Project
-
-```bash
-cd ~/second-brain
-mkdir -p projects/my-project
-cp projects/_template/* projects/my-project/
-```
-
-Edit the files in `projects/my-project/` with your actual project info.
-
-### Step 6: Update Projects Index
-
-Edit `projects/INDEX.md` to add your project.
-
-### Step 7: Initialize Git
-
-```bash
-cd ~/second-brain
-git init
-git add .
-git commit -m "Initial commit: Second Brain setup"
-```
-
-### Step 8: Test It
-
-```bash
-claude
-/overview
-/switch my-project
-```
+### 7. Test it
+- [ ] `/overview` shows your tasks
+- [ ] `/switch my-project` loads your project
+- [ ] `/learn` runs at the end of a session
 
 ---
 
@@ -135,30 +64,17 @@ claude
 | File | Required? | What to Do |
 |------|-----------|------------|
 | `CLAUDE.md` | **Yes** | Fill in User Profile |
-| `settings.local.json` | **Yes** | Add your dev tools |
-| `projects/INDEX.md` | Yes | Add your projects |
-| `projects/my-project/*` | Yes | Create first project |
-| `memory/semantic/tech/*` | Recommended | Document your stack |
-
----
-
-## Verification Checklist
-
-After setup, verify:
-
-- [ ] `claude` command works in the directory
-- [ ] `/overview` runs without errors
-- [ ] `/switch my-project` loads your project
-- [ ] Your tech stack is in `settings.local.json`
-- [ ] User Profile is filled in `CLAUDE.md`
+| `projects/[name]/*` | **Yes** | Create your first project |
+| `.claude/settings.json` | Optional | Allow the tools you use |
+| `memory/semantic/tech/*` | Recommended | Document your tools and decisions |
 
 ---
 
 ## Next Steps
 
-1. Read `ONBOARDING.md` for the full usage guide
-2. Run `/overview` each morning
-3. Run `/learn` after completing work
-4. Check `/grow` weekly for brain health
+1. Run `/overview` each morning
+2. Run `/learn` after completing work
+3. Check `/grow` weekly for brain health
+4. Read `ONBOARDING.md` when you want to understand the system in depth
 
 **You're ready to start using your Second Brain!**

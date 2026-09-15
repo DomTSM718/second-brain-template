@@ -6,8 +6,17 @@
 # Optimized for minimal context bloat (≤6 lines, ~150 chars max)
 # Rotates reminders by phase to stay relevant
 
-# Get the user's prompt
-USER_PROMPT="$1"
+# Claude Code delivers hook input as JSON on stdin (field: .prompt).
+# Reading "$1" leaves USER_PROMPT empty and kills phase detection.
+HOOK_INPUT="$(cat)"
+if command -v jq >/dev/null 2>&1; then
+  USER_PROMPT="$(printf '%s' "$HOOK_INPUT" | jq -r '.prompt // ""' 2>/dev/null)"
+else
+  USER_PROMPT="$(printf '%s' "$HOOK_INPUT" \
+    | sed -n 's/.*"prompt"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')"
+fi
+# Fall back to argv so the script stays testable from the command line.
+[ -z "$USER_PROMPT" ] && USER_PROMPT="${1:-}"
 
 # Check if plan exists
 PLAN_FILE=".claude-plan.json"

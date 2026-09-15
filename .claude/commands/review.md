@@ -84,11 +84,6 @@ Run ALL or most of these agents at the same time, adjusting language-specific re
 
 **Language-Specific Reviewers (choose based on project type)**:
 
-For Rails projects:
-1. Task rails-reviewer(PR content)
-2. Task dhh-rails-reviewer(PR title)
-3. If turbo is used: Task rails-turbo-expert(PR content)
-
 For TypeScript projects:
 1. Task typescript-reviewer(PR content)
 

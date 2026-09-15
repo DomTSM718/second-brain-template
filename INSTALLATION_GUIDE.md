@@ -5,12 +5,14 @@
 
 This guide walks through every step to install Claude Code and set up the Second Brain system on a fresh computer.
 
+> **Using the Claude desktop app? Follow [GETTING_STARTED.md](GETTING_STARTED.md) instead.** This guide is the terminal (CLI) route. Node.js is not needed for either.
+
 ---
 
 ## Table of Contents
 
 1. [Prerequisites Overview](#1-prerequisites-overview)
-2. [Install Node.js](#2-install-nodejs)
+2. [Node.js (not needed)](#2-nodejs-not-needed)
 3. [Install Git](#3-install-git)
 4. [Install a Code Editor](#4-install-a-code-editor)
 5. [Install Claude Code CLI](#5-install-claude-code-cli)
@@ -28,8 +30,7 @@ You'll need to install:
 
 | Software | Purpose | Required |
 |----------|---------|----------|
-| Node.js | Runs Claude Code CLI | Yes |
-| Git | Version control | Yes |
+| Git | Version control; on Windows, Git for Windows also provides bash for the hooks | Yes |
 | Code Editor | Edit files | Recommended |
 | Claude Account | Authentication | Yes |
 
@@ -40,68 +41,9 @@ You'll need to install:
 
 ---
 
-## 2. Install Node.js
+## 2. Node.js (not needed)
 
-Claude Code requires Node.js version 18 or higher.
-
-### Windows
-
-**Option A: Direct Download (Easiest)**
-1. Go to https://nodejs.org/
-2. Download the **LTS** version (green button)
-3. Run the installer
-4. Accept all defaults, click Next through the wizard
-5. **Important:** Check "Automatically install necessary tools" if prompted
-
-**Option B: Using winget (Windows 11)**
-```powershell
-winget install OpenJS.NodeJS.LTS
-```
-
-### macOS
-
-**Option A: Direct Download**
-1. Go to https://nodejs.org/
-2. Download the **LTS** version for macOS
-3. Run the .pkg installer
-4. Follow the prompts
-
-**Option B: Using Homebrew (Recommended)**
-```bash
-# Install Homebrew first if you don't have it
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# Then install Node.js
-brew install node@20
-```
-
-### Linux (Ubuntu/Debian)
-
-```bash
-# Update package list
-sudo apt update
-
-# Install Node.js 20.x
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt install -y nodejs
-```
-
-### Verify Installation
-
-Open a new terminal/command prompt and run:
-
-```bash
-node --version
-```
-
-You should see `v18.x.x` or higher (e.g., `v20.11.0`).
-
-Also verify npm:
-```bash
-npm --version
-```
-
-You should see `9.x.x` or higher.
+The native installer in step 5 does not need Node.js. Skip this step.
 
 ---
 
@@ -205,34 +147,18 @@ sudo snap install code --classic
 
 ## 5. Install Claude Code CLI
 
-Now install Claude Code globally using npm.
+Use the official native installer. The current command for each platform is on https://code.claude.com/docs/en/setup.
 
-### All Platforms
-
-Open terminal/command prompt and run:
-
-```bash
-npm install -g @anthropic-ai/claude-code
+**Windows (PowerShell):**
+```powershell
+irm https://claude.ai/install.ps1 | iex
 ```
 
-**Note:** On macOS/Linux, if you get permission errors, either:
-
-**Option A: Fix npm permissions (Recommended)**
-```bash
-mkdir ~/.npm-global
-npm config set prefix '~/.npm-global'
-echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc
-# Then retry the install
-npm install -g @anthropic-ai/claude-code
-```
-
-**Option B: Use sudo (Not recommended but works)**
-```bash
-sudo npm install -g @anthropic-ai/claude-code
-```
+**macOS / Linux:** use the command shown on the setup page.
 
 ### Verify Installation
+
+Open a new terminal and run:
 
 ```bash
 claude --version
@@ -318,17 +244,20 @@ If the Second Brain is in a Git repository:
 cd ~/Documents  # or wherever you prefer
 
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/second-brain.git
+git clone https://github.com/DomTSM718/second-brain-template.git second-brain
 
 # Enter the directory
 cd second-brain
+
+# Make the copy yours: disconnect it from the template
+git remote remove origin
 ```
 
 ### Option B: Copy from USB/Folder
 
 If you received the files directly:
 
-1. Copy the `TEMPLATE` folder to your desired location
+1. Copy the second brain folder to your desired location
 2. Rename it to `second-brain` (or your preferred name)
 3. Open terminal and navigate to it:
 
@@ -406,10 +335,10 @@ Find the **User Profile** section and fill in:
 
 ### Step 2: Configure Permissions
 
-Edit `settings.local.json` to add your development tools:
+Edit `.claude/settings.json` to add your development tools:
 
 ```bash
-code settings.local.json
+code .claude/settings.json
 ```
 
 Add your tools to the `allow` list. Examples:
@@ -523,31 +452,14 @@ Type `/exit` or press `Ctrl+C` to quit.
 
 ### "claude: command not found"
 
-**Cause:** npm global bin not in PATH
+**Cause:** the install location is not on your PATH yet
 
 **Windows:** Close and reopen terminal, or:
 ```powershell
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 ```
 
-**macOS/Linux:**
-```bash
-# Find where npm installs global packages
-npm config get prefix
-
-# Add to PATH (replace /usr/local with your prefix)
-export PATH="/usr/local/bin:$PATH"
-```
-
-### "npm ERR! permission denied"
-
-**macOS/Linux:** Fix npm permissions:
-```bash
-mkdir ~/.npm-global
-npm config set prefix '~/.npm-global'
-echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc
-```
+**macOS/Linux:** open a new terminal. If it still fails, re-run the installer from https://code.claude.com/docs/en/setup.
 
 ### "Authentication failed"
 
@@ -564,7 +476,7 @@ source ~/.bashrc
 Make sure you're in the second-brain directory:
 ```bash
 pwd  # Should show /path/to/second-brain
-ls   # Should show CLAUDE.md, settings.local.json, etc.
+ls   # Should show CLAUDE.md, .claude/, projects/, etc.
 ```
 
 ### Git errors on Windows
@@ -579,7 +491,6 @@ git config --global core.autocrlf false
 A tool in your PATH isn't found. Check that the tool exists:
 ```bash
 which git    # Should return a path
-which node   # Should return a path
 ```
 
 ### Commands return errors
@@ -615,21 +526,21 @@ which node   # Should return a path
 | File | Purpose |
 |------|---------|
 | `CLAUDE.md` | System instructions (customize User Profile) |
-| `settings.local.json` | Permissions (add your tools) |
+| `.claude/settings.json` | Permissions and hook wiring (add your tools) |
 | `projects/[name]/` | Your project files |
 | `memory/` | Knowledge storage |
 
 ### Getting Help
 
 - In Claude Code: `/help`
-- Documentation: https://docs.anthropic.com/claude-code
+- Documentation: https://code.claude.com/docs
 - Issues: https://github.com/anthropics/claude-code/issues
 
 ---
 
 ## Next Steps
 
-1. **Read ONBOARDING.md** for the full setup guide
+1. **Read GETTING_STARTED.md** for daily use
 2. **Run `/overview`** each morning
 3. **Run `/learn`** after completing work
 4. **Check `/grow`** weekly for brain health

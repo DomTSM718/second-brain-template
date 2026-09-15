@@ -302,7 +302,7 @@ if (!apiKey) {
 
 #### Claude Code (CLI)
 
-**Configuration File**: `.claude/mcp.json` or `settings.local.json`
+**Configuration File**: `.claude/mcp.json` or `.claude/settings.json`
 
 ```json
 {

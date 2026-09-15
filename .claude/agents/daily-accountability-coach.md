@@ -444,8 +444,9 @@ When user completes Friday check-out, after showing weekly dashboard above:
 
 4. **Save report**:
    - File: `brain-health/weekly-reports/YYYY-MM-DD-week-report.md`
-   - Update: `brain-health/pattern-history.md`
-   - Update: `brain-health/time-savings-log.md`
+   - Update: `brain-health/pattern-confidence.md` (confidence moves)
+   - Update: `brain-health/growth-log.md` (this week's section)
+   - Update: `brain-health/metrics.md` (time savings)
 
 5. **Show summary** to user:
    ```
@@ -508,7 +509,7 @@ Great week. Your second brain is compounding! See you Monday."
 
 **Reference Files**:
 - Skill workflow: `.claude/skills/brain-health-reporting/SKILL.md`
-- Tracking files: `brain-health/pattern-history.md`, `brain-health/time-savings-log.md`
+- Tracking files: `brain-health/pattern-confidence.md`, `brain-health/growth-log.md`, `brain-health/metrics.md`
 - Weekly reports: `brain-health/weekly-reports/`
 
 **Time Investment**: 30-60 seconds (automated calculation)

@@ -168,7 +168,7 @@ exit 0
 
 ## Configuration
 
-Hooks are configured in `settings.local.json`:
+Hooks are configured in `.claude/settings.json` (a root-level `settings.local.json` is not read by Claude Code):
 
 ```json
 {
@@ -329,12 +329,12 @@ chmod +x .claude/hooks/user-prompt-submit.sh
 - **Official Docs:** https://code.claude.com/docs/en/hooks
 - **Hooks Guide:** https://code.claude.com/docs/en/hooks-guide
 - **Current Implementation:** `.claude/hooks/user-prompt-submit.sh`
-- **Configuration:** Root `settings.local.json`
+- **Configuration:** `.claude/settings.json`
 
 ## Troubleshooting
 
 **Hook not firing:**
-- Check JSON syntax in `settings.local.json`
+- Check JSON syntax in `.claude/settings.json`
 - Verify executable permissions: `chmod +x hook-script.sh`
 - Test manually: `./hook-script.sh "test input"`
 

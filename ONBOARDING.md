@@ -26,20 +26,20 @@ PLAN → DELEGATE → ASSESS → CODIFY
 
 ## Phase 1: Prerequisites (10 minutes)
 
-### Required Software
+**Step-by-step instructions are in [GETTING_STARTED.md](GETTING_STARTED.md), Part 1.** In short:
 
-- [ ] **Claude Code CLI** - `npm install -g @anthropic-ai/claude-code`
-- [ ] **Git** - For version control
-- [ ] **Node.js** - v18+ (for Claude Code)
-- [ ] **Your IDE** - VS Code, IntelliJ, etc.
+### Required
 
-### Verify Installation
+- [ ] **A Claude Pro plan or higher** - the Free plan does not include Claude Code
+- [ ] **Claude desktop app** - Claude Code is its **Code** tab; nothing else to install
+- [ ] **Git** - for version control. On Windows, install **Git for Windows**: the hooks and session close-out run as bash scripts, and it provides bash
 
-```bash
-claude --version
-git --version
-node --version
-```
+*Prefer the terminal? Install the CLI from https://code.claude.com/docs/en/setup instead of (or as well as) the desktop app. Node.js is not required.*
+
+### Verify
+
+- In the desktop app: **Code** tab → **Local** → **Select folder** → your second-brain folder, then type `/overview`
+- In Git Bash or Terminal: `git --version`
 
 ---
 
@@ -89,7 +89,7 @@ This is the most important file - it tells Claude who you are.
 
 ## Phase 3: Configure Permissions (10 minutes)
 
-Edit `settings.local.json` to add tools for your tech stack.
+Edit `.claude/settings.json` to add tools for your tech stack.
 
 ### Example for Python developer:
 ```json
@@ -368,7 +368,7 @@ claude
 ### Memory not updating?
 1. Run `/learn` after completing work
 2. Check `memory/` directory structure
-3. Verify Write permissions in settings.local.json
+3. Verify Write permissions in .claude/settings.json
 
 ---
 
