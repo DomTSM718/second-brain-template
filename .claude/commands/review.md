@@ -91,15 +91,12 @@ For Python projects:
 1. Task python-reviewer(PR content)
 
 **Universal Reviewers (run for all project types)**:
-4. Task git-history-analyzer(PR content)
-5. Task dependency-detective(PR content)
-6. Task pattern-recognition-specialist(PR content)
-7. Task architecture-strategist(PR content)
-8. Task code-philosopher(PR content)
-9. Task security-sentinel(PR content)
-10. Task performance-oracle(PR content)
-11. Task devops-harmony-analyst(PR content)
-12. Task data-integrity-guardian(PR content)
+1. Task git-history-analyzer(PR content)
+2. Task pattern-recognition-specialist(PR content)
+3. Task architecture-strategist(PR content)
+4. Task security-sentinel(PR content)
+5. Task performance-oracle(PR content)
+6. Task data-integrity-guardian(PR content)
 
 </parallel_tasks>
 
