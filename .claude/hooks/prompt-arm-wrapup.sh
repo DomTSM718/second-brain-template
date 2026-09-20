@@ -13,9 +13,11 @@ set -u
 PROJ="${CLAUDE_PROJECT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
 INPUT="$(cat 2>/dev/null || true)"
 
-# System-generated turns are NOT user prompts. An agent report or task
-# notification that QUOTES "/wrap-up" must not arm the gate.
-if printf '%s' "$INPUT" | grep -Eq 'SYSTEM NOTIFICATION - NOT USER INPUT|<task-notification>'; then
+# System-generated turns are NOT user prompts. An agent report, subagent
+# hand-back, or task notification that QUOTES "/wrap-up" must not arm the gate.
+# (2026-09-20: a research subagent's report mentioning "/wrap-up" armed the gate
+# mid-session - the guard now also recognises subagent hand-back frames.)
+if printf '%s' "$INPUT" | grep -Eq 'SYSTEM NOTIFICATION - NOT USER INPUT|<task-notification>|<agent-message|\[Subagent hand-back\]|Another Claude session sent a message'; then
     exit 0
 fi
 
