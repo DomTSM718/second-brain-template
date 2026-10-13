@@ -180,7 +180,7 @@ for cand in "${CLAUDE_SCRATCHPAD:-}" "${TMPDIR:-}" "${TEMP:-}" "${TMP:-}"; do
 done
 
 # --- D6: memory-corpus growth (report-only; the ratio is judgment, the count is not) ---
-# Why: measured 2026-10-13 - Subzz held 913 memory files, 115 added in 30 days and 1
+# Why: measured 2026-10-13 - Subzz held 858 LIVE memory files, +114 in 30 days and 1
 # archived, while its own /learn skill carried a written net-zero rule. A rule nobody can
 # see the effect of does not fire. This surfaces the three numbers at the close, where the
 # habit already is. Research: projects/second-brain/research/2026-10-13-rule-corpus-growth-no-removal.md
