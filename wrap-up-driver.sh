@@ -179,6 +179,36 @@ for cand in "${CLAUDE_SCRATCHPAD:-}" "${TMPDIR:-}" "${TEMP:-}" "${TMP:-}"; do
   break
 done
 
+# --- D6: memory-corpus growth (report-only; the ratio is judgment, the count is not) ---
+# Why: measured 2026-10-13 - Subzz held 913 memory files, 115 added in 30 days and 1
+# archived, while its own /learn skill carried a written net-zero rule. A rule nobody can
+# see the effect of does not fire. This surfaces the three numbers at the close, where the
+# habit already is. Research: projects/second-brain/research/2026-10-13-rule-corpus-growth-no-removal.md
+corpus_dir=""
+# The auto-memory directory is named after the absolute path with the drive letter
+# UPPERCASE (C--Users-...). pwd gives /c/... in Git Bash, so the letter has to be
+# upper-cased or the path misses silently and the repo-local memory/ gets measured
+# instead - which is a different corpus with no MEMORY.md index.
+slug="$(pwd | sed -e 's#^/\([a-zA-Z]\)/#\1:/#' -e 's#[^A-Za-z0-9]#-#g' | awk '{ print toupper(substr($0,1,1)) substr($0,2) }')"
+for cand in "$HOME/.claude/projects/$slug/memory" "memory"; do
+  [ -d "$cand" ] && { corpus_dir="$cand"; break; }
+done
+if [ -n "$corpus_dir" ]; then
+  total="$(find "$corpus_dir" -name '*.md' -not -path '*/archive/*' 2>/dev/null | grep -c .)"
+  added="$(find "$corpus_dir" -name '*.md' -not -path '*/archive/*' -newermt '-30 days' 2>/dev/null | grep -c .)"
+  arch="$(find "$corpus_dir" -path '*archive*' -name '*.md' -newermt '-30 days' 2>/dev/null | grep -c .)"
+  idx=0; [ -f "$corpus_dir/MEMORY.md" ] && idx="$(wc -w < "$corpus_dir/MEMORY.md" | tr -d ' ')"
+  echo "  [D6] memory corpus: ${total:-0} files | 30d +${added:-0} / archived ${arch:-0} | index ${idx:-0} words"
+  # Thresholds deliberately loose: a small corpus SHOULD grow, so only an out-of-balance
+  # large one earns a FACTS line the agent has to answer for.
+  if [ "${total:-0}" -ge 150 ] && [ "${added:-0}" -gt "$(( ${arch:-0} + 10 ))" ]; then
+    note "memory corpus grew ${added} and archived ${arch} in 30 days (${total} files) - net-zero is not firing; name what the new files replace or prune"
+  fi
+  if [ "${idx:-0}" -gt 2000 ]; then
+    note "MEMORY.md index is ${idx} words and loads every session - too large to retrieve from; demote detail to reference"
+  fi
+fi
+
 # --- D6..: REPO-SPECIFIC CHECKS ------------------------------------------
 # Add checks that only make sense for this repo here (deploy-state drift,
 # merged-PR reconcile, a named credential, a second repo that must also be
