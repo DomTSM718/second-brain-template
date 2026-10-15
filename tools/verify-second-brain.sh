@@ -9,7 +9,18 @@
 set -uo pipefail
 
 TARGET="${1:?usage: verify-second-brain.sh <target-repo-path> [baseline-path]}"
-BASELINE="${2:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/EXPORT}"
+# Two layouts, one script: in the development repo the baseline is the curated
+# EXPORT/ subfolder; in a clone of the shared template the repo root IS the
+# baseline. Hardcoding ../EXPORT made this die with "baseline not found" when
+# run from a clone, which is how every recipient would run it.
+_SB_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [ -n "${2:-}" ]; then
+  BASELINE="$2"
+elif [ -d "$_SB_ROOT/EXPORT/.claude" ]; then
+  BASELINE="$_SB_ROOT/EXPORT"
+else
+  BASELINE="$_SB_ROOT"
+fi
 
 FAIL=0
 pass() { printf '  \033[32mOK\033[0m   %s\n' "$1"; }
