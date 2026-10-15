@@ -47,6 +47,10 @@ BRANCH="add-second-brain"
 [ -d "$BASE" ]   || { echo "baseline missing: $BASE"; exit 1; }
 [ -d "$TARGET" ] || { echo "target not found: $TARGET"; exit 1; }
 cd "$TARGET" || exit 1
+# Resolve to a real path AFTER the cd. The documented invocation passes ".",
+# and basename "." is "." - which seeded a project literally named "." and
+# wrote "." into projects/CURRENT.
+TARGET="$(pwd)"
 
 red()  { printf '\033[31m%s\033[0m\n' "$1"; }
 grn()  { printf '\033[32m%s\033[0m\n' "$1"; }
